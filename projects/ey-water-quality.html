@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EY Data Challenge — Qihua Liu</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="site-title">Qihua Liu</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#about">About</a>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="page project-detail">
+  <a href="../portfolio.html" class="back-link">← Back to Projects</a>
+
+  <header>
+    <h1>EY Data Challenge — Clean Water Supply Optimization</h1>
+    <p class="tagline">Remote sensing · Climate data · Feature engineering · RandomForest · Team Project</p>
+  </header>
+
+  <h2>The Problem</h2>
+  <p>Using satellite imagery and climate data, predict three water quality indicators — Total Alkalinity, Electrical Conductance, and Dissolved Reactive Phosphorus — at around 140 sampling locations across South Africa. Ground-truth water quality measurements are expensive and slow to collect at scale; if satellite spectral bands and climate variables can reliably predict these indicators, water quality could be monitored far more widely and cheaply than manual sampling allows.</p>
+
+  <h2>Demo: Key Charts</h2>
+  <div class="demo-carousel" id="ey-demo">
+    <div class="demo-slide-wrap">
+      <img class="demo-img" src="images/ey/sampling-locations.jpg" alt="Sampling Locations">
+    </div>
+    <div class="demo-footer">
+      <button class="demo-prev" disabled>&larr;</button>
+      <div class="demo-caption">
+        <span class="demo-title">Sampling Locations</span>
+        <span class="demo-counter">1 / 3</span>
+      </div>
+      <button class="demo-next">&rarr;</button>
+    </div>
+  </div>
+  <script src="carousel.js"></script>
+  <script>
+    initDemoCarousel('ey-demo', [
+      { src: 'images/ey/sampling-locations.jpg', title: 'Sampling Locations' },
+      { src: 'images/ey/correlation-matrix.jpg', title: 'Correlation Matrix' },
+      { src: 'images/ey/spatial-total-alkalinity.jpg', title: 'Spatial Distribution: Total Alkalinity' }
+    ]);
+  </script>
+
+  <h2>My Contribution — Feature Engineering</h2>
+  <p>I worked on the spectral and climate feature engineering layer of the pipeline, building on Landsat satellite bands (NIR, green, SWIR16, SWIR22, NDMI, MNDWI) and TerraClimate variables (PET — potential evapotranspiration):</p>
+  <ul>
+    <li>Interaction features: NDMI × MNDWI, PET × NDMI, PET × MNDWI</li>
+    <li>Ratio features: SWIR22/NDMI, NDMI/MNDWI, SWIR22/PET</li>
+    <li>Additional spectral and climate features: green/SWIR22 ratio, SWIR16/SWIR22 ratio, and PET interactions with green, SWIR16, and SWIR22 bands</li>
+  </ul>
+  <p>I then ran an ablation study — training a separate RandomForest model with each new feature added on top of the baseline feature set, and comparing R² across all three targets to check whether each engineered feature actually helped. The honest takeaway: most additional features moved R² by less than a point in either direction, which matters because it's easy to add features that look clever but don't earn their place in the model.</p>
+
+  <h2>Modeling &amp; Results</h2>
+  <p>The final pipeline used a RandomForestRegressor for each target, with a standard train/test split and feature scaling. Training performance was strong across all three targets, but test performance dropped noticeably — a sign of overfitting given the fairly small sample size (~140 locations):</p>
+  <ul>
+    <li>Total Alkalinity: R² train 0.90, R² test 0.55</li>
+    <li>Electrical Conductance: R² train 0.92, R² test 0.58</li>
+    <li>Dissolved Reactive Phosphorus: R² train 0.88, R² test 0.53</li>
+  </ul>
+
+  <details class="more-detail">
+  <summary>More: Ablation Table, Reflections</summary>
+  <div class="inner">
+
+  <h2>Ablation Study Detail</h2>
+  <table style="width:100%; border-collapse:collapse; font-size:0.875rem; margin-bottom:1.5rem;">
+    <thead>
+      <tr style="border-bottom:1px solid var(--border);">
+        <th style="text-align:left; padding:0.5rem 0.5rem 0.5rem 0;">Model</th>
+        <th style="text-align:right; padding:0.5rem;">Total Alkalinity R²</th>
+        <th style="text-align:right; padding:0.5rem;">Electrical Conductance R²</th>
+        <th style="text-align:right; padding:0.5rem;">Dissolved Reactive Phosphorus R²</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">Baseline</td><td style="text-align:right; padding:0.5rem;">0.817</td><td style="text-align:right; padding:0.5rem;">0.849</td><td style="text-align:right; padding:0.5rem;">0.645</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ green/SWIR22 ratio</td><td style="text-align:right; padding:0.5rem;">0.810</td><td style="text-align:right; padding:0.5rem;">0.848</td><td style="text-align:right; padding:0.5rem;">0.655</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ SWIR16/SWIR22 ratio</td><td style="text-align:right; padding:0.5rem;">0.813</td><td style="text-align:right; padding:0.5rem;">0.848</td><td style="text-align:right; padding:0.5rem;">0.648</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ PET × green interaction</td><td style="text-align:right; padding:0.5rem;">0.815</td><td style="text-align:right; padding:0.5rem;">0.846</td><td style="text-align:right; padding:0.5rem;">0.653</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ PET × SWIR16 interaction</td><td style="text-align:right; padding:0.5rem;">0.811</td><td style="text-align:right; padding:0.5rem;">0.847</td><td style="text-align:right; padding:0.5rem;">0.653</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ PET × SWIR22 interaction</td><td style="text-align:right; padding:0.5rem;">0.812</td><td style="text-align:right; padding:0.5rem;">0.847</td><td style="text-align:right; padding:0.5rem;">0.656</td></tr>
+      <tr><td style="padding:0.5rem 0.5rem 0.5rem 0;">+ PET/SWIR22 ratio</td><td style="text-align:right; padding:0.5rem;">0.810</td><td style="text-align:right; padding:0.5rem;">0.846</td><td style="text-align:right; padding:0.5rem;">0.649</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Reflections</h2>
+  <p><strong>What I Learned</strong></p>
+  <ul>
+    <li>How to construct interaction and ratio features from remote sensing spectral bands and climate variables, and why raw bands alone often correlate weakly with a downstream target</li>
+    <li>How to run a proper ablation study — testing each new feature in isolation against a fixed baseline, rather than adding a pile of features and hoping the model sorts it out</li>
+    <li>How to read the gap between train and test R² as a diagnostic for overfitting, not just a report card on model quality</li>
+  </ul>
+  <p><strong>Limitations</strong></p>
+  <ul>
+    <li>A small sample size (~140 locations) limits how much the model can generalize, which shows up directly in the train/test R² gap</li>
+    <li>Most of the additional engineered features gave marginal, inconsistent gains — suggesting the ceiling on this feature set had largely been reached with the baseline spectral and climate variables</li>
+  </ul>
+  <p><strong>Next Steps</strong></p>
+  <ul>
+    <li>Try feature importance analysis to identify which spectral/climate variables actually drive RandomForest splits, rather than testing new features one at a time by trial and ablation</li>
+    <li>Test regularized models (e.g. ridge/lasso) or gradient boosting to see whether the train/test gap narrows with a different model family</li>
+  </ul>
+
+  </div>
+  </details>
+
+  <h2>Tech Stack</h2>
+  <ul>
+    <li>Python: pandas, NumPy, scikit-learn (RandomForestRegressor, StandardScaler, train_test_split)</li>
+    <li>Remote sensing data access: rioxarray, rasterio, xarray, pystac-client, planetary-computer, odc-stac</li>
+    <li>Visualization: matplotlib, seaborn</li>
+  </ul>
+
+  <h2>Why This Project Matters</h2>
+  <p>This project is where I first worked hands-on with remote sensing data rather than tabular business data — pulling spectral indices out of satellite imagery and pairing them with climate variables to predict something that's normally measured by hand in the field. The ablation study habit I built here — test one feature at a time against a fixed baseline — is something I've carried into every project since.</p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Qihua Liu</span>
+    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

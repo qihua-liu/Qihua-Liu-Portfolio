@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purpose & Performance — Qihua Liu</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="site-title">Qihua Liu</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#about">About</a>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="page project-detail">
+  <a href="../portfolio.html" class="back-link">← Back to Projects</a>
+
+  <header>
+    <h1>Purpose & Performance — Quantifying the Relationship Between Purpose and Performance</h1>
+    <p class="tagline">RAG-based scoring · Regression analysis · S&P 500 · Capstone Team Project (Paul Merage School of Business, UC Irvine)</p>
+  </header>
+
+  <h2>The Question</h2>
+  <p>Do purpose-driven companies actually perform better financially, or is "purpose" mostly marketing language? Our team set out to quantify organizational purpose across all 500 S&amp;P 500 companies using public data, build a transparent scoring index, and test whether higher purpose scores correlate with stronger financial results.</p>
+
+  <h2>Why the S&amp;P 500</h2>
+  <p>The S&amp;P 500 gave us a rigorous, widely trusted sample: standardized SEC reporting for data quality and consistency, publicly accessible filings for all 500 companies, and enough cross-industry diversity to test whether purpose drives performance broadly or only in certain sectors.</p>
+  <p>We pulled from four sources: SEC EDGAR (10-K filings), LinkedIn (company profiles and workforce data), S&amp;P 500 index data, and official company websites — 100% publicly available data across all 500 companies.</p>
+
+  <h2>Demo: Key Charts</h2>
+  <div class="demo-carousel" id="capstone-demo">
+    <div class="demo-slide-wrap">
+      <img class="demo-img" src="images/capstone/data-exploration.jpg" alt="Purpose Score Distribution">
+    </div>
+    <div class="demo-footer">
+      <button class="demo-prev" disabled>&larr;</button>
+      <div class="demo-caption">
+        <span class="demo-title">Purpose Score Distribution</span>
+        <span class="demo-counter">1 / 5</span>
+      </div>
+      <button class="demo-next">&rarr;</button>
+    </div>
+  </div>
+  <script src="carousel.js"></script>
+  <script>
+    initDemoCarousel('capstone-demo', [
+      { src: 'images/capstone/data-exploration.jpg', title: 'Purpose Score Distribution' },
+      { src: 'images/capstone/value-creation-scorecard.jpg', title: 'Value Creation Scorecard by Industry' },
+      { src: 'images/capstone/purpose-vs-performance.jpg', title: 'Purpose vs Performance Regression' },
+      { src: 'images/capstone/outlier-mastercard.jpg', title: 'Outlier Study: Mastercard' },
+      { src: 'images/capstone/outlier-qualcomm.jpg', title: 'Outlier Study: Qualcomm' }
+    ]);
+  </script>
+
+  <h2>How We Scored Purpose</h2>
+  <p>We built a RAG-based scoring system that reads a company's disclosures and website content and evaluates it across three dimensions, each scored 0–5 by an LLM (Claude Opus) combined with an evidence-quality factor and an overlap penalty to prevent inflated scores from recycled citations:</p>
+  <ul>
+    <li><strong>Purpose Articulation</strong> — Is there an explicit purpose statement beyond profit? Is the language concrete and outcome-oriented, and does it appear in strategy documents rather than just marketing copy?</li>
+    <li><strong>History Consistency</strong> — Has the purpose narrative stayed stable over the past 10 years?</li>
+    <li><strong>Strategy Alignment</strong> — Do R&amp;D spending and capital allocation actually reflect the stated purpose, and are operational decisions aligned with it?</li>
+  </ul>
+  <p>The three dimensions combine into a final 0–100 purpose score. Performance combined EBITDA margin and ROIC minus WACC, run through a regression that strips out company size and industry effects, then time-weighted across multiple years of data.</p>
+
+  <h2>My Contribution</h2>
+  <p>My work spanned both the data pipeline and the final presentation:</p>
+  <ul>
+    <li>Wrote code to scrape public company data from LinkedIn for S&amp;P 500 companies</li>
+    <li>Extracted financial and performance data from SEC EDGAR and PitchBook</li>
+    <li>Wrote code to analyze performance metrics from the extracted financial data</li>
+    <li>Designed and presented the "Why S&amp;P 500?" and "Data Exploration / Sources" sections of the final deck — explaining to a live audience why this sample was appropriate and walking through how the four data sources fit together</li>
+  </ul>
+
+  <h2>Key Findings</h2>
+  <p>The headline result: a statistically significant but weak positive correlation between purpose and performance across the full S&amp;P 500 sample. That correlation was not uniform — when we broke it down by industry, Financials stood out sharply (n=70, coefficient 0.65, p=0.0007, R²=0.15), while most other industries (Consumer, Industrials, Health Care, Utilities, Information Technology) showed no statistically significant relationship at all. We also tested predictive power — does this year's purpose score predict next year's performance, or performance 5 years out? Both tests showed a weak, widely scattered positive relationship, not yet strong enough to stand alone as a predictor.</p>
+
+  <details class="more-detail">
+  <summary>More: Outlier Studies, Limitations, Recommendations</summary>
+  <div class="inner">
+
+  <h2>Outlier Studies</h2>
+  <p><strong>Mastercard</strong> scored well above the sample mean on both purpose (45.7 vs. a mean of 24.3) and performance (98.5, the highest among top Financials) — consistent with our broader finding that in a sector built on trust, regulation, and long-term stakeholder relationships, purpose-driven practices may reflect stronger governance and lower reputational risk.</p>
+  <p><strong>Qualcomm</strong> showed the opposite pattern: a very low purpose score (2.33/100) despite strong performance (61.95/100, above the IT industry median). The gap traced back to a real limitation in the scoring approach — Qualcomm's technical and legal filing language doesn't read like a mission-driven narrative, so the NLP-based rubric under-detected purpose signal that might genuinely be present in how the company operates. (See the Demo carousel above for both breakdowns.)</p>
+
+  <h2>Limitations</h2>
+  <ul>
+    <li>Limited to 500 companies, which caps the breadth of the analysis</li>
+    <li>The purpose-scoring system only awards high scores when evidence is explicit and rubric-aligned — it can miss purpose that's expressed in less conventional language</li>
+    <li>U.S.-only scope (S&amp;P 500), excluding global markets</li>
+    <li>Growth-stage and mature firms are scored on the same scale, losing some developmental nuance</li>
+  </ul>
+
+  <h2>Recommendations</h2>
+  <ul>
+    <li>Use purpose as one input among several, not a standalone predictor — pair it with operational metrics like business model viability and management quality</li>
+    <li>In Financials specifically, purpose appears to be a meaningful evaluation signal given the sector's reliance on trust and governance</li>
+    <li>A low purpose score doesn't necessarily mean a weak company, especially for IP-licensing or R&amp;D-heavy firms whose language the NLP rubric under-detects — these cases warrant human review before drawing conclusions</li>
+  </ul>
+
+  </div>
+  </details>
+
+  <h2>Tech Stack</h2>
+  <ul>
+    <li>RAG-based LLM scoring (Claude)</li>
+    <li>Python (regression analysis, data processing)</li>
+    <li>SEC EDGAR, LinkedIn, S&amp;P 500 index data</li>
+  </ul>
+
+  <h2>Team</h2>
+  <p>Cindy Yeh (Project Manager) · Ruofan (Kate) Yang (Communication Lead) · Yuqi Zhou (Analysis Lead) · Yu-Fang (Yvonne) Huang (Data Lead) · Qihua Liu (Presentation Lead) — Pan Group B, Team 28, Paul Merage School of Business, UC Irvine</p>
+
+  <h2>Why This Project Matters</h2>
+  <p>This project sharpened a skill that matters just as much as the technical pipeline itself: taking a nuanced, mixed result — "purpose helps, but only in some industries, and the measurement has real blind spots" — and communicating it honestly and clearly to an audience, without overselling the finding or burying the caveats.</p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Qihua Liu</span>
+    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

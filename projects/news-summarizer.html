@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News Summarizer — Qihua Liu</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="site-title">Qihua Liu</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#about">About</a>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="page project-detail">
+  <a href="../portfolio.html" class="back-link">← Back to Projects</a>
+
+  <header>
+    <h1>News Summarizer</h1>
+    <p class="tagline">NLP Vibe Coding Challenge · Solo Project · Python · Streamlit</p>
+  </header>
+
+  <p>🔗 <a href="https://github.com/liuqihua17-ship-it/vibe-news-summarizer" target="_blank" rel="noopener">View on GitHub</a></p>
+
+  <h2>What It Does</h2>
+  <p>A small solo-built tool for a rapid "vibe coding" NLP challenge: pull live news from an RSS feed, let the user pick which articles to summarize, generate summaries with an LLM, categorize each article by topic, and visualize the topic breakdown.</p>
+  <ul>
+    <li>Fetches news articles live from RSS feeds (e.g. BBC World)</li>
+    <li>Lets the user select articles and generate LLM summaries — with a safe fallback if no API key is configured, so the app still works without one</li>
+    <li>Categorizes articles by topic (Business, Tech, Politics, Sports, Health, Entertainment, World)</li>
+    <li>Visualizes topic distribution with a bar chart</li>
+  </ul>
+
+  <h2>Demo</h2>
+  <div class="demo-carousel" id="news-demo">
+    <div class="demo-slide-wrap">
+      <img class="demo-img" src="images/news/fetch-articles.jpg" alt="Fetched Articles">
+    </div>
+    <div class="demo-footer">
+      <button class="demo-prev" disabled>&larr;</button>
+      <div class="demo-caption">
+        <span class="demo-title">Fetched Articles</span>
+        <span class="demo-counter">1 / 2</span>
+      </div>
+      <button class="demo-next">&rarr;</button>
+    </div>
+  </div>
+  <script src="carousel.js"></script>
+  <script>
+    initDemoCarousel('news-demo', [
+      { src: 'images/news/fetch-articles.jpg', title: 'Fetched Articles' },
+      { src: 'images/news/topic-chart.jpg', title: 'Topic Distribution' }
+    ]);
+  </script>
+
+  <h2>Why the Fallback Design</h2>
+  <p>Since this was a timed coding challenge meant to be run and judged quickly, I designed the summarization step to degrade gracefully: if an OpenAI API key isn't set, the app falls back to a safe, non-LLM summarization method instead of failing outright. That's a small design choice, but it's the difference between a demo that always works and one that breaks the moment an API key is missing or rate-limited.</p>
+
+  <h2>Tech Stack</h2>
+  <ul>
+    <li>Python, Streamlit</li>
+    <li>Feedparser (RSS fetching)</li>
+    <li>Pandas, Matplotlib</li>
+    <li>OpenAI API (optional, with fallback)</li>
+  </ul>
+
+  <h2>Why This Project Matters</h2>
+  <p>This one is small on purpose — it was a timed challenge, not a term-long project — but it's fully my own, end to end. It shows I can take a vague prompt ("build an NLP news tool") and ship something working, with sane defaults and failure handling, in a short window.</p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Qihua Liu</span>
+    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

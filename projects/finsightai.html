@@ -57,7 +57,7 @@
   <h2>Approach</h2>
   <p>FinSightAI answers plain-English questions about filings with citations, compares companies, tracks 5-year trends, and classifies risk. I built the question-answering and risk-classification layer — the part that turns retrieved passages into a trustworthy answer:</p>
   <ul>
-    <li><strong>Grounded Q&amp;A</strong> — generates answers only from retrieved SEC passages, constrained to what the evidence actually supports</li>
+    <li><strong>Grounded Q&amp;A</strong> — Gemini generates the answer from the retrieved SEC passages, constrained to what that evidence actually supports</li>
     <li><strong>Citation validation</strong> — every answer traces back to a specific filing and section rather than an unverifiable claim</li>
     <li><strong>Risk classification</strong> — labels retrieved content into liquidity, market, regulatory, and operational risk categories</li>
     <li><strong>Retrieval pipeline</strong> — SEC EDGAR ingestion, ~1,200-character chunks, MiniLM embeddings indexed in FAISS, and section-aware top-K search feeding the answer layer</li>

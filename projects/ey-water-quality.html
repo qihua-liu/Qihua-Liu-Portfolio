@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EY Data Challenge — Clean Water Supply Optimization · Qihua Liu</title>
+<meta name="description" content="EY Data Challenge: predicting water-quality indicators from satellite imagery and climate data with engineered spectral features and Random Forest models. Project case study by Qihua Liu.">
+<meta property="og:title" content="EY Data Challenge — Clean Water Supply Optimization">
+<meta property="og:description" content="Predicting water-quality indicators from satellite and climate data with engineered spectral features and Random Forest models.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://qihua-liu.github.io/Qihua-Liu-Portfolio/projects/ey-water-quality.html">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -32,7 +37,7 @@
     <h1>EY Data Challenge — Clean Water Supply Optimization</h1>
     <div class="tags">
       <span class="tag">Remote Sensing</span>
-      <span class="tag">RandomForest</span>
+      <span class="tag">Random Forest</span>
       <span class="tag">Feature Engineering</span>
       <span class="tag">scikit-learn</span>
       <span class="tag">Python</span>
@@ -47,8 +52,8 @@
   <ul>
     <li><strong>Interaction features</strong> — NDMI×MNDWI, PET×NDMI, PET×MNDWI, and PET crossed with individual bands</li>
     <li><strong>Ratio features</strong> — SWIR22/NDMI, NDMI/MNDWI, SWIR22/PET, green/SWIR22, SWIR16/SWIR22</li>
-    <li><strong>Ablation study</strong> — trained a separate RandomForest per target with each feature added on top of a fixed baseline, comparing R² across all three targets</li>
-    <li><strong>Modeling</strong> — RandomForestRegressor per target with feature scaling and a train/test split</li>
+    <li><strong>Ablation study</strong> — trained a separate Random Forest per target with each feature added on top of a fixed baseline, comparing R² across all three targets</li>
+    <li><strong>Modeling</strong> — a <code>RandomForestRegressor</code> per target with feature scaling and a train/test split</li>
   </ul>
 
   <h2>Demo: Key Charts</h2>

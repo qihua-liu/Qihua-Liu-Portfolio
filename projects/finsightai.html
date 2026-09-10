@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FinSightAI — Financial Document Intelligence Copilot · Qihua Liu</title>
+<meta name="description" content="FinSightAI: a retrieval-augmented system for SEC filings — grounded Q&amp;A with citations, 5-year financial trends, and automatic risk classification. Project case study by Qihua Liu.">
+<meta property="og:title" content="FinSightAI — Financial Document Intelligence Copilot">
+<meta property="og:description" content="A RAG system for SEC filings: grounded Q&amp;A with citations, 5-year financial trends, and automatic risk classification.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://qihua-liu.github.io/Qihua-Liu-Portfolio/projects/finsightai.html">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -44,10 +49,10 @@
   </header>
 
   <h2>The Problem</h2>
-  <p>SEC filings like 10-Ks run well over 100 pages, with financial, operational, and risk information scattered across unstructured text. Reading them one at a time doesn't scale when you're tracking dozens of companies, and the professional tools that solve this cost $10K+ per year.</p>
+  <p>SEC filings like 10-Ks run well over 100 pages, with financial, operational, and risk information scattered across unstructured text. Reading them one at a time doesn't scale when you're tracking dozens of companies, and professional financial-research platforms can be expensive and out of reach for individual users.</p>
 
   <h2>Approach</h2>
-  <p>FinSightAI answers plain-English questions about filings with citations, compares companies, tracks multi-year trends, and classifies risk. I built the question-answering and risk-classification layer — the part that turns retrieved passages into a trustworthy answer:</p>
+  <p>FinSightAI answers plain-English questions about filings with citations, compares companies, tracks 5-year trends, and classifies risk. I built the question-answering and risk-classification layer — the part that turns retrieved passages into a trustworthy answer:</p>
   <ul>
     <li><strong>Grounded Q&amp;A</strong> — generates answers only from retrieved SEC passages, constrained to what the evidence actually supports</li>
     <li><strong>Citation validation</strong> — every answer traces back to a specific filing and section rather than an unverifiable claim</li>

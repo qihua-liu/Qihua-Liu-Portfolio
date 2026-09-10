@@ -9,8 +9,11 @@
   --text: #1A1A2E;
   --text-secondary: #6B6B80;
   --border: #E5E5EC;
+  --border-strong: #D6D6E2;
   --accent: #5B4FE8;
+  --accent-ink: #4A3FD4; /* slightly muted indigo for filled-button hover */
   --accent-soft: #F1EFFF;
+  --accent-wash: rgba(91, 79, 232, 0.04); /* barely-there row hover tint */
   --status: #00C2A8; /* reserved for future functional states only */
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -168,24 +171,24 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   flex-wrap: wrap;
   gap: 1.25rem 1.75rem;
-  margin-bottom: 2.5rem;
 }
 
 .cta-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.68rem 1.15rem;
+  padding: 0.7rem 1.2rem;
   border: 1px solid var(--accent);
   border-radius: 4px;
-  color: var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .cta-primary .cta-arrow { transition: transform 0.2s ease; }
-.cta-primary:hover { background: var(--accent-soft); }
+.cta-primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
 .cta-primary:hover .cta-arrow { transform: translateX(3px); }
 
 .cta-secondary {
@@ -196,14 +199,7 @@ a { color: inherit; text-decoration: none; }
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.cta-secondary:hover { color: var(--text); border-color: var(--text); }
-
-.hero-skills {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-}
+.cta-secondary:hover { color: var(--text); border-color: var(--text-secondary); }
 
 /* ============================================================
    Section label (editorial / technical accent — used sparingly)
@@ -224,18 +220,24 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 
 .projects {
-  padding-bottom: clamp(4rem, 9vw, 7rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
 .project-index { list-style: none; }
 
 .project-index li {
   border-top: 1px solid var(--border);
+  transition: border-color 0.2s ease;
 }
 
 .project-index li:last-child {
   border-bottom: 1px solid var(--border);
 }
+
+/* divider subtly strengthens around the hovered row */
+.project-index li:hover,
+.project-index li:hover + li,
+.project-index li:hover:last-child { border-color: var(--border-strong); }
 
 .project-row {
   display: grid;
@@ -243,13 +245,13 @@ a { color: inherit; text-decoration: none; }
   grid-template-areas: "num body arrow";
   column-gap: clamp(1rem, 3vw, 2rem);
   align-items: start;
-  padding: 1.85rem 1rem;
-  margin: 0 -1rem;
-  border-radius: 4px;
+  padding: 1.75rem 0.75rem;
+  margin: 0 -0.75rem;
+  border-radius: 3px;
   transition: background-color 0.2s ease;
 }
 
-.project-row:hover { background: var(--accent-soft); }
+.project-row:hover { background: var(--accent-wash); }
 
 .pr-num {
   grid-area: num;
@@ -265,10 +267,7 @@ a { color: inherit; text-decoration: none; }
 .pr-body {
   grid-area: body;
   min-width: 0;
-  transition: transform 0.2s ease;
 }
-
-.project-row:hover .pr-body { transform: translateX(3px); }
 
 .pr-title {
   display: block;
@@ -291,12 +290,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 .pr-meta {
-  display: block;
-  margin-top: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
 }
 
 .pr-arrow {
@@ -308,7 +305,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .project-row:hover .pr-arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
   color: var(--accent);
 }
 
@@ -319,12 +316,11 @@ a { color: inherit; text-decoration: none; }
       "num arrow"
       "body body";
     row-gap: 0.5rem;
-    padding: 1.5rem 0.75rem;
-    margin: 0 -0.75rem;
+    padding: 1.5rem 0.5rem;
+    margin: 0 -0.5rem;
   }
   .pr-num { padding-top: 0; }
   .pr-arrow { align-self: center; }
-  .project-row:hover .pr-body { transform: none; }
 }
 
 /* ============================================================
@@ -411,18 +407,22 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 
+.about-text { max-width: 60ch; }
+
 .about-columns p {
   color: var(--text-secondary);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.85rem;
   font-size: 0.95rem;
   line-height: 1.7;
 }
 
 @media (max-width: 560px) {
-  .about-columns { flex-direction: column; align-items: center; text-align: center; }
+  .about-columns { flex-direction: column; align-items: flex-start; }
+  .about-columns .about-photo { align-self: center; }
 }
 
-/* Tag chips (kept quiet — used on About skills + project detail meta) */
+/* Technical labels — soft-lavender editorial style.
+   Used on homepage project rows, About skills, and project-detail metadata. */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -431,16 +431,42 @@ a { color: inherit; text-decoration: none; }
 }
 
 .tag {
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.02em;
-  padding: 0.2rem 0.55rem;
-  border: 1px solid var(--border);
-  border-radius: 3px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  padding: 0.22rem 0.55rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(91, 79, 232, 0.12);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+/* homepage project-row tags: most compact */
+.pr-meta .tag { font-size: 0.68rem; padding: 0.18rem 0.5rem; }
+
+/* About skills: slightly more visible */
+.about-skills {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skill-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.skill-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--text-secondary);
 }
 
-.about-skills { margin-top: 1.25rem; }
+.about-skills .tags { margin-top: 0; }
+.about-skills .tag { font-size: 0.75rem; padding: 0.26rem 0.62rem; }
 
 /* ============================================================
    Project detail pages
@@ -478,7 +504,7 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--text);
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }

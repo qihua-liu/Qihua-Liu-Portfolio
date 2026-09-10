@@ -19,7 +19,7 @@
         <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href="https://github.com/qihua-liu" target="_blank" rel="noopener" aria-label="GitHub">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </div>
@@ -28,21 +28,34 @@
 </nav>
 
 <main class="page project-detail">
-  <a href="../portfolio.html" class="back-link">← Back to Projects</a>
+  <a href="../index.html#projects" class="back-link">← Back</a>
 
   <header>
     <h1>FinSightAI — Financial Document Intelligence Copilot</h1>
-    <p class="tagline">RAG · LLM Q&A · Risk Classification · SQL · Team Project (BANA 275, UC Irvine)</p>
+    <div class="tags">
+      <span class="tag">RAG</span>
+      <span class="tag">LLM Q&amp;A</span>
+      <span class="tag">Risk Classification</span>
+      <span class="tag">FAISS</span>
+      <span class="tag">Gemini</span>
+      <span class="tag">Streamlit</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/qihua-liu/FinsightAI" target="_blank" rel="noopener" class="btn-github">View on GitHub</a>
+    </div>
   </header>
 
-  <p>🔗 <a href="https://github.com/liuqihua17-ship-it/sec-edgar-nlp-pipeline-FinsightAI" target="_blank" rel="noopener">View on GitHub</a></p>
-
   <h2>The Problem</h2>
-  <p>SEC filings like 10-Ks routinely exceed 100 pages, packing dense financial, operational, and risk information into unstructured text. Key information is scattered across many sections, which makes both manual review and automatic extraction difficult. Analysts end up spending hours reading filings one at a time — a process that doesn't scale when you're tracking many companies, and professional tools that solve this can cost $10K+ per year.</p>
-  <p>Across our dataset — the top 50 S&amp;P 500 companies, 5 years of filings (2019–2025) — that's 250+ documents at roughly 120 pages each, with risk disclosures spread across 15+ sections per filing.</p>
+  <p>SEC filings like 10-Ks run well over 100 pages, with financial, operational, and risk information scattered across unstructured text. Reading them one at a time doesn't scale when you're tracking dozens of companies, and the professional tools that solve this cost $10K+ per year.</p>
 
-  <h2>What We Built</h2>
-  <p>FinSightAI is an AI-powered document intelligence platform with five core features: a RAG-based Q&amp;A tool that answers plain-English questions with citations, a multi-company comparison engine, a 5-year trend analyzer, a financial metrics dashboard backed by SQL, and an automatic risk classifier — all powered by Google Gemini.</p>
+  <h2>Approach</h2>
+  <p>FinSightAI answers plain-English questions about filings with citations, compares companies, tracks multi-year trends, and classifies risk. I built the question-answering and risk-classification layer — the part that turns retrieved passages into a trustworthy answer:</p>
+  <ul>
+    <li><strong>Grounded Q&amp;A</strong> — generates answers only from retrieved SEC passages, constrained to what the evidence actually supports</li>
+    <li><strong>Citation validation</strong> — every answer traces back to a specific filing and section rather than an unverifiable claim</li>
+    <li><strong>Risk classification</strong> — labels retrieved content into liquidity, market, regulatory, and operational risk categories</li>
+    <li><strong>Retrieval pipeline</strong> — SEC EDGAR ingestion, ~1,200-character chunks, MiniLM embeddings indexed in FAISS, and section-aware top-K search feeding the answer layer</li>
+  </ul>
 
   <h2>Demo</h2>
   <div class="demo-carousel" id="finsight-demo">
@@ -69,75 +82,21 @@
     ]);
   </script>
 
-  <h2>My Contribution — QA System &amp; Risk Classification</h2>
-  <p>I led the user-facing intelligence layer of the pipeline: the part that takes a retrieved set of document chunks and turns them into a trustworthy answer.</p>
+  <h2>Results</h2>
   <ul>
-    <li>Built the LLM question-answering pipeline that generates grounded answers from retrieved SEC filing passages</li>
-    <li>Implemented citation validation so every answer traces back to a specific source filing and section, rather than an unverifiable claim</li>
-    <li>Designed a risk classification system that labels retrieved content into liquidity, market, regulatory, and operational risk categories</li>
-    <li>Worked on hallucination prevention — keeping generated answers constrained to what the retrieved evidence actually supports</li>
-    <li>Connected the full path from retrieval → LLM → final answer, so the QA and comparison features could reuse the same grounded-answer logic</li>
+    <li>Retrieval-quality evaluation: Recall@5 and MRR of 0.68, with a 63% section-hit rate — the numbers that make the citations trustworthy</li>
+    <li>Grounded answers with working citations across single-company Q&amp;A, multi-company comparison, and 5-year trend views</li>
+    <li>Automatic risk labels that hold up across very different filing styles — a bank's risk section reads nothing like a tech company's</li>
   </ul>
-
-  <h2>How It Works</h2>
-  <p>The system runs as a five-stage pipeline:</p>
-  <ul>
-    <li><strong>SEC EDGAR</strong> — pulls filings for 50 S&amp;P 500 companies across 5 years</li>
-    <li><strong>Text Extraction</strong> — converts HTML filings to clean text, chunked at ~1,200 characters</li>
-    <li><strong>Embeddings</strong> — MiniLM-L6-v2 embeddings indexed in FAISS for fast similarity search</li>
-    <li><strong>RAG Retrieval</strong> — section-aware top-K search that returns the most relevant passages with citations</li>
-    <li><strong>Gemini AI</strong> — generates the final grounded answer from the retrieved evidence</li>
-  </ul>
-  <p>As a bonus feature, the team also built a SQL database with 15 structured financial fields (total revenue, net income, total assets, total liabilities, cash and equivalents, and more) extracted per filing, across all 50 companies and 5 years — which powers the dashboard and trend views.</p>
-
-  <h2>Evaluation</h2>
-  <p>We evaluated retrieval quality directly rather than assuming it worked:</p>
-  <ul>
-    <li><strong>Recall@5:</strong> 0.68 — the fraction of correct company chunks appearing in the top 5 retrieved results</li>
-    <li><strong>MRR:</strong> 0.68 — mean reciprocal rank of the first correct chunk</li>
-    <li><strong>Section Hit Rate:</strong> 63.3% — how often the correct 10-K section was retrieved for a given query type</li>
-  </ul>
-  <p>These numbers matter because they're what makes the citations trustworthy — the QA layer I built is only as good as the evidence it's grounded in.</p>
-
-  <details class="more-detail">
-  <summary>More: Comparison & Trend Features, Reflections</summary>
-  <div class="inner">
-
-  <h2>Multi-Company Comparison &amp; Trend Analysis</h2>
-  <p>Beyond single-document Q&amp;A, FinSightAI can retrieve from multiple companies at once and synthesize a structured comparative analysis with an analyst takeaway — and track how language, risks, and financials evolved across all 5 years of data, including detecting risks that newly appeared or faded over time (for example, AI-related risk language showing up in 2022 filings but not in 2019). See the Demo carousel above for the Compare and Trend screens.</p>
 
   <h2>Reflections</h2>
-  <p><strong>What I Learned</strong></p>
-  <ul>
-    <li>How to keep an LLM's output constrained to retrieved evidence rather than letting it fill gaps from parametric memory</li>
-    <li>Practical citation validation — checking that a generated claim actually maps back to a specific retrieved passage</li>
-    <li>Designing a multi-class risk classifier that has to work across very different writing styles (a tech company's risk section reads very differently from a bank's)</li>
-    <li>Coordinating a shared retrieval → generation interface with teammates building the ingestion and comparison layers</li>
-  </ul>
-
-  </div>
-  </details>
-
-  <h2>Tech Stack</h2>
-  <ul>
-    <li>LLM: Google Gemini 2.5 Flash</li>
-    <li>Embeddings: MiniLM-L6-v2 + FAISS</li>
-    <li>Data: SEC EDGAR API</li>
-    <li>Database: SQLite</li>
-    <li>Frontend: Streamlit</li>
-  </ul>
-
-  <h2>Team</h2>
-  <p>Gema Zhu · Vishal Srivastava · Qihua Liu · Ruofan Yang · Tamarakare Edwin-Biayeibo — BANA 275, UC Irvine</p>
-
-  <h2>Why This Project Matters</h2>
-  <p>This project is a direct expression of what I want to keep building: systems that make LLM output verifiable, not just plausible. Anyone can wire an LLM up to a document and get an answer — the harder and more valuable part is making sure that answer is actually grounded in evidence, labeled with the right risk category, and traceable back to its source. That's the layer I owned here.</p>
+  <p>The hard part of an LLM-over-documents system isn't getting an answer — it's keeping that answer constrained to the retrieved evidence and traceable to its source. The citation-validation and risk-classification layer is where most of that work lives.</p>
 </main>
 
 <footer class="footer">
   <div class="footer-inner">
     <span>© 2026 Qihua Liu</span>
-    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a></span>
+    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/qihua-liu" target="_blank" rel="noopener">GitHub</a></span>
   </div>
 </footer>
 

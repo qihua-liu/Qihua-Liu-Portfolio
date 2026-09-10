@@ -19,7 +19,7 @@
         <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href="https://github.com/qihua-liu" target="_blank" rel="noopener" aria-label="GitHub">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </div>
@@ -28,25 +28,33 @@
 </nav>
 
 <main class="page project-detail">
-  <a href="../portfolio.html" class="back-link">← Back to Projects</a>
+  <a href="../index.html#projects" class="back-link">← Back</a>
 
   <header>
-    <h1>Revana — AI-Powered Review Intelligence for E-Commerce Sellers</h1>
-    <p class="tagline">Stop reading reviews. Start making decisions. · Claude API · Streamlit · Team Project (BANA 274, UC Irvine)</p>
+    <h1>Revana — Amazon Review Insights Platform</h1>
+    <div class="tags">
+      <span class="tag">Claude API</span>
+      <span class="tag">Python</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Rainforest API</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">Plotly</span>
+    </div>
+    <div class="project-links">
+      <a href="https://github.com/qihua-liu/Revana" target="_blank" rel="noopener" class="btn-github">View on GitHub</a>
+    </div>
   </header>
 
-  <p>🔗 <a href="https://github.com/liuqihua17-ship-it/Revana" target="_blank" rel="noopener">View on GitHub</a></p>
+  <h2>The Problem</h2>
+  <p>Amazon sellers spend hours reading reviews one by one to find patterns software can surface in seconds. Existing tools return little more than a star rating — nothing on what to fix, what competitors do better, or what's driving returns.</p>
 
-  <p>Amazon sellers are flying blind. They spend hours per week reading reviews one by one, trying to spot patterns an AI can find in seconds. Existing tools return little more than a star rating — no insight into what to actually fix, what competitors do better, or what's driving returns. Meanwhile, competitor reviews sit on a goldmine of market data that most sellers never see. The result: sellers fix the wrong things, listings underperform, and competitors quietly take market share.</p>
-
-  <h2>The Solution</h2>
-  <p>Paste an Amazon product ID (ASIN), get a complete product strategy in about 90 seconds. Revana is the only tool we found that combines fake-review filtering, competitor gap analysis, and AI-generated listing copy in a single workflow, at a price point any individual seller could afford:</p>
+  <h2>Approach</h2>
+  <p>Revana takes an Amazon product ID and returns a full product strategy in about 90 seconds. I worked on the stages that decide which reviews the AI is allowed to see — review fetching and fake-review filtering — plus sentiment-trend tracking and UI responsiveness:</p>
   <ul>
-    <li><strong>Fetch</strong> — the Rainforest API pulls live Amazon reviews legally, with no scraping</li>
-    <li><strong>Filter</strong> — a 12-signal heuristic scorer removes fake and bot reviews before any AI sees them</li>
-    <li><strong>Analyze</strong> — Claude reads the trusted reviews and extracts a structured strategy</li>
-    <li><strong>Brief</strong> — complaint themes, buyer personas, risk alerts, and keyword opportunities</li>
-    <li><strong>Compete</strong> — add a competitor's ASIN to get a full gap analysis and positioning read</li>
+    <li><strong>Trust scoring</strong> — each review scored 0–100 across ~11 signals (verified purchase, length, posting bursts, linguistic patterns, reviewer history); anything below 50 is dropped before analysis</li>
+    <li><strong>Review fetching</strong> — multi-sort-order requests against the Rainforest API to pull a larger, more varied sample within free-tier limits</li>
+    <li><strong>Sentiment trends</strong> — tracks how rating and complaint rate move over time</li>
+    <li><strong>Analysis</strong> — trusted reviews go to Claude in structured calls that return a strict JSON brief: complaint themes, buyer personas, risk alerts, keyword gaps, and a competitor gap analysis</li>
   </ul>
 
   <h2>Demo</h2>
@@ -72,75 +80,22 @@
       { src: 'images/revana/revana-trends.jpg', title: 'Sentiment Trends Over Time' }
     ]);
   </script>
-  <p>The Overview screen shows the trust scorer in action: of 247 reviews analyzed for this demo product, 189 were kept as trusted and 58 were filtered out as likely fake or low-signal — and the app surfaces a critical finding (a recurring lid-leak complaint) directly, with an estimated rating impact if fixed. The Trends screen tracks that kind of signal over time — in this demo case, flagging a rating decline from 4.3 to 3.6 over 12 months alongside a complaint rate that tripled.</p>
 
-  <h2>My Contribution</h2>
-  <p>This was a 4-person team project and the role split wasn't strictly siloed — I ended up working across two parts of the pipeline:</p>
+  <h2>Results</h2>
   <ul>
-    <li><strong>Fake-review filtering &amp; sentiment trends (<code>utils.py</code>)</strong> — the trust-scoring logic that flags unreliable reviews before they reach the AI analysis step, and the sentiment trend tracking over time</li>
-    <li><strong>Review fetching (<code>rainforest.py</code>)</strong> — improved the Rainforest API integration with multi-sort-order requests, pulling a larger and more varied set of reviews within the constraints of the free-tier API</li>
-    <li><strong>UI responsiveness (<code>app.py</code>)</strong> — added a live progress indicator so users see fetch/analysis progress instead of a blank screen while reviews are pulled and processed</li>
+    <li>~25% of reviews filtered out as untrustworthy on average per product, before any AI sees them</li>
+    <li>Full strategy brief in ~90 seconds, versus roughly 5 hours to read 500 reviews by hand</li>
+    <li>Competitor gap analysis that correctly surfaces cross-product strengths and weaknesses from review language</li>
   </ul>
 
-  <h2>How It Works</h2>
-  <p>This is a real multi-stage AI pipeline, not a thin wrapper around a chat model:</p>
-  <ul>
-    <li><strong>Data Ingestion</strong> — user enters an ASIN, the Rainforest API fetches product metadata and reviews legally (no scraping, no ToS risk), returned as a pandas DataFrame</li>
-    <li><strong>Preprocessing</strong> — <code>utils.py</code> scores each review 0–100 across 11 trust signals: verified purchase (+40), review length, posting clusters, linguistic patterns, and reviewer history</li>
-    <li><strong>LLM Analysis</strong> — <code>analyzer.py</code> sends only the trusted reviews to Claude Sonnet via the Anthropic API, in two separate calls: one for structured product analysis, one for competitor gap analysis</li>
-    <li><strong>Output Layer</strong> — <code>app.py</code> renders an 8-tab Streamlit dashboard with Plotly charts, and exports to TXT, CSV, and JSON, with a demo mode for offline presentations</li>
-  </ul>
-
-  <details class="more-detail">
-  <summary>Technical Deep Dive: Design Choices, Evaluation & Limitations</summary>
-  <div class="inner">
-
-  <h2>Two Deliberate Technical Choices</h2>
-  <p><strong>11-signal trust scorer.</strong> Existing tools rely on star ratings, which fake and incentivized reviews easily inflate. Each review is scored on signals like verified purchase (+40), review length over 200 words (+10), suspiciously short 5-star reviews (−30), and autogenerated-looking reviewer names (−15). A score of 50 or higher is treated as trusted; on average this removes about 25% of the noise per product before any AI analysis happens.</p>
-  <p><strong>Structured prompt engineering.</strong> Rather than a conversational response, Claude is prompted as a senior e-commerce strategist and required to return a strict JSON schema — themes, personas, risks, and keyword opportunities — with retry logic if invalid JSON comes back, and a separate call for competitor gap analysis. This makes the output machine-readable and consistent run to run.</p>
-
-  <h2>Evaluation</h2>
-  <ul>
-    <li>~25% of reviews filtered out as untrustworthy on average per product</li>
-    <li>90 seconds end-to-end for a full brief, from ASIN input to output</li>
-    <li>Manual baseline: roughly 5 hours to read 500 reviews by hand, versus under 2 minutes for the Revana equivalent</li>
-  </ul>
-  <p><strong>What worked well:</strong> the fake-review filter consistently removed 20–30% of unverified, very short, or burst-posted reviews; Claude produced coherent, actionable complaint themes that matched what a human analyst would flag; competitor gap analysis correctly surfaced cross-product strengths and weaknesses from review language.</p>
-  <p><strong>Where it breaks:</strong> complaint-frequency percentages become statistically unreliable with small review samples — a theme mentioned in just a few reviews can look more significant than it is. Full reliability would need 50+ reviews per product, which requires a paid API tier rather than the free tier we used.</p>
-
-  <h2>Limitations</h2>
-  <ul>
-    <li>Free Rainforest API tier returns only 8–10 reviews per call; statistical confidence needs 50+ (a $50/month paid tier returns 100 per call with pagination)</li>
-    <li>The fake-review filter relies on heuristics, not a labeled ground-truth dataset — estimated false-positive rate around 10% from manual spot-checking</li>
-    <li>English-language reviews only; non-English Amazon marketplaces aren't supported in the current version</li>
-    <li>At scale, cost runs about $0.003 per Claude analysis plus $0.05 per ASIN on the paid Rainforest tier — roughly $15/month per seller for daily analysis</li>
-  </ul>
-
-  <h2>Business Context</h2>
-  <p>There are an estimated 9.7 million active Amazon sellers worldwide, and for comparison, PayPal paid $4B to acquire Honey — a tool that only finds coupons. We didn't find any existing tool that combines fake-review filtering, competitor gap analysis, and AI-generated listing copy in one workflow, which is the gap Revana targets.</p>
-
-  </div>
-  </details>
-
-  <h2>Tech Stack</h2>
-  <ul>
-    <li>Python, Streamlit</li>
-    <li>Claude Sonnet API (Anthropic)</li>
-    <li>Rainforest API</li>
-    <li>Pandas, Plotly</li>
-  </ul>
-
-  <h2>Team</h2>
-  <p>Tamarakare Edwin-Biayeibo · Gema Zhu · Qihua Liu · Wenqi Song — BANA 274, UC Irvine</p>
-
-  <h2>Why This Project Matters</h2>
-  <p>Revana is a working, deployed application with a real evaluation behind it — not just a notebook. It's a concrete example of putting an LLM inside a production-shaped pipeline: filtering untrustworthy input before the model ever sees it, constraining its output to a strict schema, and being upfront about where the system's numbers stop being reliable.</p>
+  <h2>Reflections</h2>
+  <p>A working AI pipeline is mostly about what happens around the model: filtering untrustworthy input before it's ever seen, forcing the output into a strict schema, and being honest about where the numbers stop being reliable — complaint percentages get shaky below about 50 reviews per product.</p>
 </main>
 
 <footer class="footer">
   <div class="footer-inner">
     <span>© 2026 Qihua Liu</span>
-    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a></span>
+    <span><a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/qihua-liu" target="_blank" rel="noopener">GitHub</a></span>
   </div>
 </footer>
 

@@ -22,7 +22,7 @@
       <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
-      <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener" aria-label="GitHub">
+      <a href="https://github.com/qihua-liu" target="_blank" rel="noopener" aria-label="GitHub">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       </a>
     </div>
@@ -58,7 +58,7 @@
           <h3>FinSightAI — Financial Document Intelligence Copilot</h3>
           <span class="project-arrow">→</span>
         </div>
-        <p>A RAG-powered platform that answers questions about SEC filings with citations, compares companies, and classifies risk. I led the QA and risk-classification layer.</p>
+        <p>A RAG-powered platform that answers questions about SEC filings with citations, compares companies, and classifies risk. I built the QA and risk-classification layer.</p>
         <div class="tags"><span class="tag">RAG</span><span class="tag">LLM Q&amp;A</span><span class="tag">Risk Classification</span><span class="tag">Streamlit</span></div>
       </a>
 
@@ -76,7 +76,7 @@
           <h3>Purpose &amp; Performance — S&amp;P 500 Capstone</h3>
           <span class="project-arrow">→</span>
         </div>
-        <p>An RAG-based scoring framework testing whether purpose-driven companies outperform financially, across all 500 S&amp;P 500 companies.</p>
+        <p>A RAG-based scoring framework testing whether purpose-driven companies outperform financially, across all 500 S&amp;P 500 companies.</p>
         <div class="tags"><span class="tag">RAG Scoring</span><span class="tag">Regression</span><span class="tag">S&amp;P 500</span></div>
       </a>
 
@@ -107,7 +107,7 @@
     <div class="about-content fade-in">
       <img src="images/qihua-liu.jpg" alt="Qihua Liu" class="about-photo" id="about-photo">
       <div class="about-text">
-        <p>I'm a Master of Science in Business Analytics graduate from the Paul Merage School of Business at UC Irvine, where my work increasingly focused on applied machine learning, LLM applications, and data-driven decision support.</p>
+        <p>I'm a Master of Science in Business Analytics graduate from UC Irvine, where my work increasingly focused on applied machine learning, LLM applications, and data-driven decision support.</p>
         <p>My recent work spans financial document intelligence, e-commerce review analysis, corporate purpose scoring, and remote sensing — combining analytics, machine learning, and LLMs to turn complex real-world data into useful insights.</p>
         <p>Earlier in my career, I worked as an Audit Assistant at KPMG Huazhen LLP and a Marketing Assistant at Lenovo Group, where I developed a habit of working carefully with evidence — verifying sources and tracing conclusions back to the underlying data. That habit carries directly into how I approach analytics and AI today.</p>
         <p>I'm seeking opportunities at the intersection of applied AI, analytics, and business problem solving — where I can build practical AI and analytics solutions around real-world data and decisions.</p>
@@ -135,7 +135,7 @@
   <div class="footer-inner">
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/qihua-liu" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/liuqihua17-ship-it" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/qihua-liu" target="_blank" rel="noopener">GitHub</a>
     </div>
     <p>© 2026 Qihua Liu</p>
   </div>
@@ -150,17 +150,17 @@
     var area = document.getElementById('lanyard-area');
 
     var GRAVITY = 0.5;
-    var DAMPING = 0.99;
+    var DAMPING = 0.96;
     var SEGMENTS = 12;
-    var ITERATIONS = 5;
+    var ITERATIONS = 7;
     var particles = [];
     var segLen = 0;
     var isDragging = false;
     var dragOff = { x: 0, y: 0 };
 
     function init() {
-      var w = area.offsetWidth;
-      var h = area.offsetHeight;
+      var w = area.offsetWidth || area.getBoundingClientRect().width || 320;
+      var h = area.offsetHeight || 440;
       var dpr = window.devicePixelRatio || 1;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -175,7 +175,7 @@
       particles = [];
       for (var i = 0; i <= SEGMENTS; i++) {
         particles.push({
-          x: anchorX + (i === SEGMENTS ? 35 : 0),
+          x: anchorX + (i === SEGMENTS ? 10 : 0),
           y: i * segLen,
           prevX: anchorX,
           prevY: i * segLen
@@ -196,7 +196,7 @@
         p.y += vy + GRAVITY;
       }
 
-      particles[0].x = area.offsetWidth / 2;
+      particles[0].x = (area.offsetWidth || 320) / 2;
       particles[0].y = 0;
 
       var iter, a, b, dx, dy, dist, diff;
@@ -215,6 +215,16 @@
           }
         }
       }
+
+      // Never let a segment fold back upward; ease the chain toward a straight
+      // vertical rest under the anchor so the badge can't settle crooked.
+      var anchor = particles[0].x;
+      for (i = 1; i < particles.length; i++) {
+        if (particles[i].y < particles[i - 1].y) particles[i].y = particles[i - 1].y;
+        if (!isDragging) {
+          particles[i].x += (anchor - particles[i].x) * 0.07 * (i / particles.length);
+        }
+      }
     }
 
     function draw() {
@@ -228,20 +238,27 @@
       }
       var last = particles[particles.length - 1];
       ctx.lineTo(last.x, last.y);
-      ctx.strokeStyle = '#4CC2FF';
+      ctx.strokeStyle = '#4F46E5';
       ctx.lineWidth = 2.5;
       ctx.lineCap = 'round';
       ctx.stroke();
     }
 
+    var badgeAngle = 0;
     function positionBadge() {
       var n = particles.length;
       var last = particles[n - 1];
-      var prev = particles[n - 2];
-      var angle = Math.atan2(last.x - prev.x, last.y - prev.y);
+      // Use a longer baseline than the final link so the angle doesn't jitter
+      var ref = particles[Math.max(0, n - 4)];
+      var target = Math.atan2(last.x - ref.x, Math.max(last.y - ref.y, 0.001));
+      var MAX_TILT = 0.32;
+      if (target > MAX_TILT) target = MAX_TILT;
+      if (target < -MAX_TILT) target = -MAX_TILT;
+      // Low-pass filter for a smooth, settled rest position
+      badgeAngle += (target - badgeAngle) * 0.08;
       badgeEl.style.left = last.x + 'px';
       badgeEl.style.top = (last.y - 7) + 'px';
-      badgeEl.style.transform = 'translate(-50%, 0) rotate(' + angle + 'rad)';
+      badgeEl.style.transform = 'translate(-50%, 0) rotate(' + badgeAngle + 'rad)';
     }
 
     function loop() {

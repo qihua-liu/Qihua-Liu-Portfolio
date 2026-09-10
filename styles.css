@@ -328,6 +328,17 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+   About (homepage section)
+   ============================================================ */
+
+.about {
+  padding: 0 0 clamp(4rem, 9vw, 7rem);
+}
+
+.about .section-label { margin-bottom: 1.75rem; }
+.about .about-columns { margin-top: 0; }
+
+/* ============================================================
    Footer
    ============================================================ */
 
@@ -383,13 +394,6 @@ a { color: inherit; text-decoration: none; }
 .page ul { margin: 0 0 1.25rem 1.25rem; color: var(--text-secondary); font-size: 0.95rem; }
 .page li { margin-bottom: 0.4rem; line-height: 1.65; }
 
-.project-actions a {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--accent);
-}
-.project-actions a::after { content: " →"; }
-
 /* Two-column about layout */
 .about-columns {
   display: flex;
@@ -437,44 +441,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .about-skills { margin-top: 1.25rem; }
-
-/* Portfolio.html simple list (kept from previous structure) */
-.project-list { display: flex; flex-direction: column; margin-top: 1rem; }
-
-.project-list .project {
-  display: block;
-  padding: 1.5rem 0;
-  border-top: 1px solid var(--border);
-  color: inherit;
-}
-.project-list .project:last-child { border-bottom: 1px solid var(--border); }
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-}
-
-.project-header h3 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: 1.15rem;
-  letter-spacing: -0.01em;
-}
-
-.project-list .project p {
-  margin: 0.5rem 0 0.7rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.project-arrow {
-  color: var(--text-secondary);
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-.project-list .project:hover h3 { color: var(--accent); }
-.project-list .project:hover .project-arrow { transform: translateX(3px); color: var(--accent); }
 
 /* ============================================================
    Project detail pages
